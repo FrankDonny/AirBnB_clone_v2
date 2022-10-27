@@ -20,11 +20,10 @@ def do_pack():
         return None
 
 
-
 def do_deploy(archive_path):
     """new version"""
     env.hosts = ['44.197.231.3', '100.25.4.135']
-    
+
     if isdir(archive_path) is False:
         return False
     try:
