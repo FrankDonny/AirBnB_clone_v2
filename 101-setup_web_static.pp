@@ -1,33 +1,4 @@
-package {'nginx':
-  ensure => installed
-}
-
-exec {'create_dir':
-  command  => 'sudo mkdir -p /data/web_static/releases/test/',
-  provider => shell
-}
-
-exec {'create_index':
-  command  => 'echo \'<h1>hello world, this is a test</h1>\' | sudo tee /data/web_static/releases/test/index.html',
-  provider => shell
-}
-
-exec {'create_symlink':
-  command  => 'sudo ln -sf /data/web_static/releases/test/ /data/web_static/current',
-  provider => shell
-}
-
-exec {'change_ownership':
-  command  => 'sudo chown -hR ubuntu:ubuntu /data/',
-  provider => shell
-}
-
-exec {'add_line':
-  command  => "sudo sed -i '11i alias /data/web_static/current/;' /etc/nginx/sites-available/default",
-  provider => shell
-}
-
-exec {'restart_nginx':
-  command  => 'sudo service nginx restart',
-  provider => shell
+exec { 'server setup':
+  command  => 'sudo apt-get -y update && sudo apt-get -y install nginx && sudo service nginx start && sudo mkdir -p /data/web_static/shared/ && sudo mkdir -p /data/web_static/releases/test/ && echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html > /dev/null && sudo ln -sf /data/web_static/releases/test/ /data/web_static/current && sudo chown -R ubuntu:ubuntu /data/ && sudo sed -i \'44i \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\' /etc/nginx/sites-available/default && sudo service nginx restart',
+  provider => shell,
 }
