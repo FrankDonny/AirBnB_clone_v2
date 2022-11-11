@@ -34,14 +34,10 @@ def python_is_cool(text='is cool'):
     return "Python {}".format(text.replace('_', ' '))
 
 
-@app.route('/number/<n>/')
+@app.route('/number/<int:n>/')
 def is_number(n):
     """detect is an arg passed is number"""
-    try:
-        n = int(n)
-        return "{} is a number".format(n)
-    except ValueError:
-        pass
+    return "{} is a number".format(n)
 
 
 if __name__ == "__main__":

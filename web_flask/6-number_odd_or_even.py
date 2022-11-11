@@ -34,38 +34,26 @@ def python_is_cool(text='is cool'):
     return "Python {}".format(text.replace('_', ' '))
 
 
-@app.route('/number/<n>/')
+@app.route('/number/<int:n>/')
 def is_number(n):
     """detect is an arg passed is number"""
-    try:
-        n = int(n)
-        return "{} is a number".format(n)
-    except ValueError:
-        pass
+    return "{} is a number".format(n)
 
 
-@app.route('/number_template/<n>/')
+@app.route('/number_template/<int:n>/')
 def number_temp(n):
     """detect is an arg passed is number and render an html file"""
-    try:
-        n = int(n)
-        return render_template('5-number.html', n=n)
-    except ValueError:
-        pass
+    return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even/<n>/')
+@app.route('/number_odd_or_even/<int:n>/')
 def number_odd_even(n):
     """detect if arg passed is a number and its even or not"""
-    try:
-        n = int(n)
-        if n % 2 == 0:
-            return render_template('6-number_odd_or_even.html',
-                                   n="{} is even".format(n))
+    if n % 2 == 0:
         return render_template('6-number_odd_or_even.html',
-                               n="{} is odd".format(n))
-    except ValueError:
-        pass
+                               n="{} is even".format(n))
+    return render_template('6-number_odd_or_even.html',
+                           n="{} is odd".format(n))
 
 
 if __name__ == "__main__":
