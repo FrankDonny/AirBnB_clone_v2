@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
 from models.base_model import BaseModel, Base
-from models.city import City
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import getenv
 
@@ -16,7 +15,8 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            """filestorage relationship between city and state"""
+            """getter for returning city objects"""
             from models import storage
-            city_objs = storage.all(City)
-            return [v for k, v in city_objs.items() if v.state_id == self.id]
+            from models.city import City
+            objects = storage.all(City)
+            return [value for key, value in objects if value.state_id == self.id]

@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
     # determines prompt for interactive/non-interactive modes
-    prompt = '(hbnb) '  # if sys.__stdin__.isatty() else ''
+    prompt = '(hbnb) '
 
     classes = {
                'BaseModel': BaseModel, 'User': User, 'Place': Place,
@@ -37,7 +37,6 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
-
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -80,6 +79,7 @@ class HBNBCommand(cmd.Cmd):
                         _args = pline.replace(',', '')
                         # _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
+
         except Exception as mess:
             pass
         finally:
@@ -117,24 +117,27 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        my_list = args.split(" ")
-        if my_list[0] not in HBNBCommand.classes:
+        arguments = args.split()
+        if arguments[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[my_list[0]]()
-        for arg_pair in my_list[1:]:
-            arg_pair = arg_pair.split('=', 1)
-            value = arg_pair[1]
-            if arg_pair[1][0] == '"':
-                value = value[1:-1].replace('_', ' ')
+        new_instance = HBNBCommand.classes[arguments[0]]()
+        for arg in arguments[1:]:
+            args_2 = arg.split('=')
+            first = str(args_2[0])
+            second = str(args_2[1])
+            if second[0] == '"' and second[-1] == '"':
+                second = second.replace('"', '')
+                setattr(new_instance, first, second.replace("_", " "))
             else:
-                if "." in value:
-                    value = float(value)
-                else:
-                    value = int(value)
-            setattr(new_instance, arg_pair[0], value)
+                try:
+                    second = int(second)
+                    setattr(new_instance, first, second)
+                except Exception:
+                    second = float(second)
+                    setattr(new_instance, first, second)
         new_instance.save()
-        print("{}".format(new_instance.id))
+        print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
@@ -209,19 +212,20 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        objects = storage.all()
         print_list = []
+
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in objects.items():
+            for k, v in storage._FileStorage__objects.items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in objects.items():
+            for k, v in storage._FileStorage__objects.items():
                 print_list.append(str(v))
+
         print(print_list)
 
     def help_all(self):

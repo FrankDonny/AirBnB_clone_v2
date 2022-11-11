@@ -34,17 +34,16 @@ class DBStorage:
     def all(self, cls=None):
         """query on all objects of a class or all classes"""
         obj_dict = {}
-        if cls:
+        if cls is not None:
             cls_objs = self.__session.query(cls).all()
             for obj in cls_objs:
                 obj_dict.update({cls + '.' + obj.id: obj})
-            return obj_dict
         else:
             cls_objs = self.__session.query(User, State, City, Amenity,
                                             Place, Review).all()
             for obj in cls_objs:
                 obj_dict.update({obj.__class__.__name__ + '.' + obj.id: obj})
-            return obj_dict
+        return obj_dict
 
     def new(self, obj):
         """add new object to the current session"""
@@ -61,6 +60,6 @@ class DBStorage:
 
     def reload(self):
         """creates all tables and ensures secure threading"""
-        self.__session = scoped_session(sessionmaker()(bind=self.__engine,
-                                        expire_on_commit=False))
         Base.metadata.create_all(self.__engine)
+        self.__session = scoped_session(sessionmaker()(bind=self.__engine,
+                                   expire_on_commit=False))
