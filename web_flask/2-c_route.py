@@ -22,7 +22,7 @@ def hbnb():
 @app.route('/c/<text>')
 def c_is_fun(text):
     """return a string with C starting"""
-    return f"C {text.replace('_', ' ')}"
+    return f"C {}".format(text.replace('_', ' '))
 
 
 if __name__ == "__main__":
