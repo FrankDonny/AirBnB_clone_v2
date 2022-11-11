@@ -36,13 +36,13 @@ def python_is_cool(text='is cool'):
 
 @app.route('/number/<int:n>/')
 def is_number(n):
-    """detect is an arg passed is number"""
+    """detect arg passed is number"""
     return "{} is a number".format(n)
 
 
 @app.route('/number_template/<int:n>/')
 def number_temp(n):
-    """detect is an arg passed is number and render an html file"""
+    """detect arg passed is number and render a html file"""
     return render_template('5-number.html', n=n)
 
 
