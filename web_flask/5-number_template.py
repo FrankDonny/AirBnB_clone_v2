@@ -22,14 +22,16 @@ def hbnb():
 @app.route('/c/<text>')
 def c_is_fun(text):
     """return a string with C starting"""
-    return f"C {text.replace('_', ' ')}"
+    text = text.replace('_', ' ')
+    return "C {}".format(text)
 
 
 @app.route('/python')
 @app.route('/python/<text>')
 def python_is_cool(text='is cool'):
-    """return a string with Python starting, default text is set to 'is cool'"""
-    return f"Python {text.replace('_', ' ')}"
+    """return a string with Python starting,
+    default text is set to 'is cool'"""
+    return "Python {}".format(text.replace('_', ' '))
 
 
 @app.route('/number/<n>/')
@@ -37,7 +39,7 @@ def is_number(n):
     """detect is an arg passed is number"""
     try:
         n = int(n)
-        return f"{n} is a number"
+        return "{} is a number".format(n)
     except ValueError:
         pass
 
