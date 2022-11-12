@@ -32,7 +32,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on all objects of a class or all classes"""
         class_list = [
-            State, City]
+            State, City, User]
 
         rows = []
 
