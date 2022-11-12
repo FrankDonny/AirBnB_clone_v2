@@ -12,7 +12,8 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if not cls:
             return FileStorage.__objects
-        return {key: value for key, value in FileStorage.__objects.items() if type(value) == cls}
+        return {key: value for key, value in FileStorage.__objects.items()
+                if type(value) == cls}
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -25,7 +26,7 @@ class FileStorage:
             temp.update(FileStorage.__objects)
             for key, val in temp.items():
                 temp[key] = val.to_dict()
-            json.dump(temp, f)
+            json.dump(temp, f, indent=4)
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -52,9 +53,14 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """delete object from the storage"""
         if obj is None:
             pass
         for _obj in FileStorage.__objects:
             if FileStorage.__objects[_obj] == obj:
                 del FileStorage.__objects[_obj]
                 break
+
+    # def close(self):
+    #     """call reload to deserialize json"""
+    #     self.reload()
