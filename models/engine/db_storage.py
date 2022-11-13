@@ -57,3 +57,7 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         self.__session = scoped_session(sessionmaker(bind=self.__engine,
                                                        expire_on_commit=False))
+
+    def close(self):
+        """remove an instance from the current session"""
+        self.__session.remove()

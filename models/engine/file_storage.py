@@ -61,6 +61,6 @@ class FileStorage:
                 del FileStorage.__objects[_obj]
                 break
 
-    # def close(self):
-    #     """call reload to deserialize json"""
-    #     self.reload()
+    def close(self):
+        """call reload to deserialize json"""
+        self.reload()
