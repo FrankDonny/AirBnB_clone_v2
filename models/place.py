@@ -5,6 +5,13 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 from os import getenv
 
+metadata = Base.metadata
+place_amenity = Table("place_amenity", metadata,
+                      Column("place_id", String(60), ForeignKey("places.id"),
+                             primary_key=True, nullable=False),
+                      Column("amenity_id", String(60), ForeignKey("amenities.id"),
+                             primary_key=True, nullable=False))
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -35,17 +42,17 @@ class Place(BaseModel, Base):
             return [value for value in storage.all(Review).values()
                     if value.place_id == self.id]
 
-        # @property
-        # def amenities(self):
-        #     """getter to return Amenity objects"""
-        #     from models import storage
-        #     from models.amenity import Amenity
-        #     return [value for value in storage.all(Amenity).values()
-        #             if value.id in self.amenity_ids]
-        #
-        # @amenities.setter
-        # def amenities(self, obj):
-        #     """setter for appending object id"""
-        #     from models.amenity import Amenity
-        #     if isinstance(obj, Amenity):
-        #         self.amenity_ids.append(obj.id)
+        @property
+        def amenities(self):
+            """getter to return Amenity objects"""
+            from models import storage
+            from models.amenity import Amenity
+            return [value for value in storage.all(Amenity).values()
+                    if value.id in self.amenity_ids]
+
+        @amenities.setter
+        def amenities(self, obj):
+            """setter for appending object id"""
+            from models.amenity import Amenity
+            if isinstance(obj, Amenity):
+                self.amenity_ids.append(obj.id)

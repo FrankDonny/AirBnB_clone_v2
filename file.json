@@ -1,0 +1,90 @@
+{
+    "User.0c1e3d32-48e0-4aa2-8cdf-eea73ec8d440": {
+        "id": "0c1e3d32-48e0-4aa2-8cdf-eea73ec8d440",
+        "created_at": "2022-11-12T01:10:42.983720",
+        "updated_at": "2022-11-12T01:10:42.983720",
+        "name": "Donny",
+        "__class__": "User"
+    },
+    "User.a6967911-1461-424d-aee6-31bf33b8b2ce": {
+        "id": "a6967911-1461-424d-aee6-31bf33b8b2ce",
+        "created_at": "2022-11-12T01:15:57.680757",
+        "updated_at": "2022-11-12T01:15:57.680757",
+        "name": "Frank Donny",
+        "location": 93.90367628,
+        "number": 123456,
+        "state": "Ashanti Region",
+        "my_id": "0001",
+        "__class__": "User"
+    },
+    "State.b2c8901d-8e35-4caa-abe5-c7c6b1190cdf": {
+        "id": "b2c8901d-8e35-4caa-abe5-c7c6b1190cdf",
+        "created_at": "2022-11-12T01:30:33.619319",
+        "updated_at": "2022-11-12T01:30:33.619319",
+        "name": "Florida",
+        "location": 99.087683,
+        "__class__": "State"
+    },
+    "State.ee826f90-68d0-4a6d-8cf6-7cb052deefc9": {
+        "name": "California",
+        "id": "ee826f90-68d0-4a6d-8cf6-7cb052deefc9",
+        "created_at": "2022-11-13T06:25:37.131952",
+        "updated_at": "2022-11-13T06:25:37.131967",
+        "__class__": "State"
+    },
+    "City.11e897e8-1a22-44de-9936-b9156964988a": {
+        "state_id": "ee826f90-68d0-4a6d-8cf6-7cb052deefc9",
+        "name": "San Francisco",
+        "id": "11e897e8-1a22-44de-9936-b9156964988a",
+        "created_at": "2022-11-13T06:25:37.132523",
+        "updated_at": "2022-11-13T06:25:37.132544",
+        "__class__": "City"
+    },
+    "User.0268207b-e146-45ba-ae35-2544fdcefea9": {
+        "email": "john@snow.com",
+        "password": "johnpwd",
+        "id": "0268207b-e146-45ba-ae35-2544fdcefea9",
+        "created_at": "2022-11-13T06:25:37.133114",
+        "updated_at": "2022-11-13T06:25:37.133166",
+        "__class__": "User"
+    },
+    "Place.29733cef-0ca1-4ce3-bb6d-08a6d5b70d29": {
+        "user_id": "0268207b-e146-45ba-ae35-2544fdcefea9",
+        "city_id": "11e897e8-1a22-44de-9936-b9156964988a",
+        "name": "House 1",
+        "id": "29733cef-0ca1-4ce3-bb6d-08a6d5b70d29",
+        "created_at": "2022-11-13T06:25:37.133858",
+        "updated_at": "2022-11-13T06:25:37.133888",
+        "__class__": "Place"
+    },
+    "Place.7e72771c-22f8-4669-a019-bf40518b29e9": {
+        "user_id": "0268207b-e146-45ba-ae35-2544fdcefea9",
+        "city_id": "11e897e8-1a22-44de-9936-b9156964988a",
+        "name": "House 2",
+        "id": "7e72771c-22f8-4669-a019-bf40518b29e9",
+        "created_at": "2022-11-13T06:25:37.134301",
+        "updated_at": "2022-11-13T06:25:37.134379",
+        "__class__": "Place"
+    },
+    "Amenity.fe3298a5-feea-4001-bfea-4807a3a058f2": {
+        "name": "Wifi",
+        "id": "fe3298a5-feea-4001-bfea-4807a3a058f2",
+        "created_at": "2022-11-13T06:25:37.134775",
+        "updated_at": "2022-11-13T06:25:37.134789",
+        "__class__": "Amenity"
+    },
+    "Amenity.57afce22-e6c7-4db7-b58c-cbbf5c1be7d2": {
+        "name": "Cable",
+        "id": "57afce22-e6c7-4db7-b58c-cbbf5c1be7d2",
+        "created_at": "2022-11-13T06:25:37.135332",
+        "updated_at": "2022-11-13T06:25:37.135365",
+        "__class__": "Amenity"
+    },
+    "Amenity.55952d8f-1fae-45fe-90b8-fae3c6c7f0f9": {
+        "name": "Oven",
+        "id": "55952d8f-1fae-45fe-90b8-fae3c6c7f0f9",
+        "created_at": "2022-11-13T06:25:37.135995",
+        "updated_at": "2022-11-13T06:25:37.136007",
+        "__class__": "Amenity"
+    }
+}
