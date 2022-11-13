@@ -19,4 +19,5 @@ class State(BaseModel, Base):
             from models import storage
             from models.city import City
             objects = storage.all(City)
-            return [value for value in objects.values() if value.state_id == State.id]
+            return [value for value in objects.values()
+                    if value.state_id == State.id]
