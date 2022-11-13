@@ -44,19 +44,23 @@ class DBStorage:
         return {type(v).__name__ + "." + v.id: v for v in rows}
 
     def new(self, obj):
+        """add a new session"""
         self.__session.add(obj)
 
     def save(self):
+        """save a new session created"""
         self.__session.commit()
 
     def delete(self, obj=None):
+        """delete an object from the current session"""
         if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
+        """create all tables and start a session"""
         Base.metadata.create_all(self.__engine)
         self.__session = scoped_session(sessionmaker(bind=self.__engine,
-                                                       expire_on_commit=False))
+                                                     expire_on_commit=False))
 
     def close(self):
         """remove an instance from the current session"""
