@@ -5,13 +5,13 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 from os import getenv
 
-# metadata = Base.metadata
-# place_amenity = Table("place_amenity", metadata,
-#                       Column("place_id", String(60), ForeignKey("places.id"),
-#                              primary_key=True, nullable=False),
-#                       Column("amenity_id", String(60),
-#                              ForeignKey("amenities.id"), primary_key=True,
-#                              nullable=False))
+metadata = Base.metadata
+place_amenity = Table("place_amenity", metadata,
+                      Column("place_id", String(60), ForeignKey("places.id"),
+                             primary_key=True, nullable=False),
+                      Column("amenity_id", String(60),
+                             ForeignKey("amenities.id"), primary_key=True,
+                             nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -32,9 +32,9 @@ class Place(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", cascade="all, delete",
                                backref="place")
-        # amenities = relationship("Amenity", secondary=place_amenity,
-        #                          viewonly=False,
-        #                          backref="place_amenities")
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False,
+                                 backref="place_amenity")
     else:
         @property
         def reviews(self):
@@ -44,17 +44,17 @@ class Place(BaseModel, Base):
             return [value for value in storage.all(Review).values()
                     if value.place_id == self.id]
 
-        # @property
-        # def amenities(self):
-        #     """getter to return Amenity objects"""
-        #     from models import storage
-        #     from models.amenity import Amenity
-        #     return [value for value in storage.all(Amenity).values()
-        #             if value.id in self.amenity_ids]
+        @property
+        def amenities(self):
+            """getter to return Amenity objects"""
+            from models import storage
+            from models.amenity import Amenity
+            return [value for value in storage.all(Amenity).values()
+                    if value.id in self.amenity_ids]
 
-        # @amenities.setter
-        # def amenities(self, obj):
-        #     """setter for appending object id"""
-        #     from models.amenity import Amenity
-        #     if isinstance(obj, Amenity):
-        #         self.amenity_ids.append(obj.id)
+        @amenities.setter
+        def amenities(self, obj):
+            """setter for appending object id"""
+            from models.amenity import Amenity
+            if isinstance(obj, Amenity):
+                self.amenity_ids.append(obj.id)

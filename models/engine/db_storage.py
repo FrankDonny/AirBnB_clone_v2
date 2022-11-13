@@ -7,9 +7,9 @@ from os import getenv
 from models.city import City
 from models.place import Place
 from models.state import State
-# from models.amenity import Amenity
-# from models.review import Review
-# from models.user import User
+from models.amenity import Amenity
+from models.review import Review
+from models.user import User
 
 
 class DBStorage:
@@ -32,7 +32,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on all objects of a class or all classes"""
         class_list = [
-            State, City]
+            State, City, Place, Amenity, Review, User]
 
         rows = []
 
