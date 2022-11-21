@@ -13,9 +13,9 @@ app.url_map.strict_slashes = False
 def cities_by_states():
     """state list to be returned"""
     if getenv("HBNB_TYPE_STORAGE") == "db":
-    cities = storage.all(City)
-    sorted_cities = sorted(cities.values(), key=lambda state: cities.name)
-    return render_template('7-states_list.html', state=sorted_cities)
+        cities = storage.all(City)
+        sorted_cities = sorted(cities.values(), key=lambda state: cities.name)
+        return render_template('7-states_list.html', state=sorted_cities)
 
 
 @app.teardown_appcontext
